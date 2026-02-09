@@ -1,0 +1,20 @@
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: wallet
+      POSTGRES_USER: wallet
+      POSTGRES_PASSWORD: wallet
+    ports:
+      - "5432:5432"
+
+  app:
+    build: .
+    depends_on:
+      - postgres
+    environment:
+      DB_URL: jdbc:postgresql://postgres:5432/wallet
+      DB_USER: wallet
+      DB_PASS: wallet
+    ports:
+      - "8080:8080"
